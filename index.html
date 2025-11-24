@@ -1,188 +1,340 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dcare Doha</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f8f9fb;
-      color: #222;
-    }
-    header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-    }
-    header .logo {
-      font-size: 24px;
-      font-weight: 700;
-      color: #0c4bfa;
-    }
-    nav a {
-      margin-left: 25px;
-      color: #333;
-      font-weight: 500;
-      text-decoration: none;
-    }
+import React, { useState, useEffect } from 'react';
+import { Package, Utensils, Clock, MapPin, Phone, Mail, ArrowRight, CheckCircle, Zap, Shield, Star } from 'lucide-react';
 
-    .hero {
-      height: 90vh;
-      background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-    }
-    .hero h1 {
-      font-size: 50px;
-      font-weight: 700;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .hero p {
-      font-size: 20px;
-      margin-top: 10px;
-    }
-    .hero button {
-      margin-top: 20px;
-      padding: 14px 30px;
-      background: #0c4bfa;
-      border: none;
-      color: white;
-      border-radius: 6px;
-      font-size: 18px;
-      cursor: pointer;
-    }
+export default function DcareDohaWebsite() {
+  const [scrollY, setScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('home');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    section {
-      padding: 80px 40px;
-    }
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
-    .services h2, .about h2, .contact h2 {
-      font-size: 34px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  const parallaxStyle = {
+    transform: `translateY(${scrollY * 0.5}px)`,
+  };
 
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
+  const float3DStyle = {
+    transform: `perspective(1000px) rotateX(${(mousePosition.y - window.innerHeight / 2) * 0.01}deg) rotateY(${(mousePosition.x - window.innerWidth / 2) * 0.01}deg)`,
+    transition: 'transform 0.1s ease-out',
+  };
 
-    .service-card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      text-align: center;
-    }
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
 
-    .service-card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #0c4bfa;
-    }
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-lg border-b border-purple-500/30">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            DcareDoha
+          </div>
+          <div className="flex gap-8">
+            <a href="#home" className="hover:text-purple-400 transition-colors duration-300">Home</a>
+            <a href="#services" className="hover:text-purple-400 transition-colors duration-300">Services</a>
+            <a href="#features" className="hover:text-purple-400 transition-colors duration-300">Features</a>
+            <a href="#contact" className="hover:text-purple-400 transition-colors duration-300">Contact</a>
+          </div>
+        </div>
+      </nav>
 
-    .about p {
-      max-width: 900px;
-      margin: auto;
-      line-height: 1.7;
-      font-size: 18px;
-    }
+      {/* Hero Section */}
+      <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="space-y-8">
+            <div className="overflow-hidden">
+              <h1 className="text-7xl font-bold leading-tight animate-slide-up">
+                Fast Delivery
+                <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                  Across Qatar
+                </span>
+              </h1>
+            </div>
+            <p className="text-xl text-gray-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Your trusted partner for food and e-commerce delivery in Doha. Experience speed, reliability, and care with every order.
+            </p>
+            <div className="flex gap-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <button className="group bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/50 flex items-center gap-2">
+                Order Now
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              </button>
+              <button className="border-2 border-purple-400 px-8 py-4 rounded-full font-semibold hover:bg-purple-400/10 transition-all duration-300">
+                Learn More
+              </button>
+            </div>
+          </div>
 
-    .contact .box {
-      max-width: 600px;
-      background: white;
-      margin: auto;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      font-size: 18px;
-      line-height: 1.6;
-    }
+          {/* 3D Floating Card */}
+          <div className="relative" style={float3DStyle}>
+            <div className="relative bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-3xl p-8 border border-purple-400/30 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-3xl animate-pulse"></div>
+              <div className="relative space-y-6">
+                <div className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl hover:scale-105 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl">
+                    <Utensils size={32} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Food Delivery</h3>
+                    <p className="text-gray-300">Hot & Fresh</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl hover:scale-105 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl">
+                    <Package size={32} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">E-Commerce</h3>
+                    <p className="text-gray-300">Safe & Secure</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl hover:scale-105 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl">
+                    <Clock size={32} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">24/7 Service</h3>
+                    <p className="text-gray-300">Always Ready</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    footer {
-      background: #0c4bfa;
-      padding: 25px;
-      text-align: center;
-      color: white;
-      margin-top: 40px;
-    }
-  </style>
-</head>
-<body>
+      {/* Services Section */}
+      <section id="services" className="relative py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Our Services
+            </h2>
+            <p className="text-xl text-gray-300">Delivering excellence across Qatar</p>
+          </div>
 
-<header>
-  <div class="logo">Dcare Doha</div>
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="group relative bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-3xl p-8 border border-purple-400/30 hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:to-pink-600/20 rounded-3xl transition-all duration-500"></div>
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                  <Utensils size={40} />
+                </div>
+                <h3 className="text-3xl font-bold mb-4">Food Delivery</h3>
+                <p className="text-gray-300 mb-6">
+                  From your favorite restaurants to your doorstep. Hot, fresh, and on time. We partner with the best restaurants in Doha to bring you delicious meals exactly when you want them.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>Real-time order tracking</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>Temperature-controlled delivery</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>30-minute guarantee</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-<section class="hero">
-  <div>
-    <h1>Fast & Reliable Delivery Services in Doha</h1>
-    <p>Your trusted partner for quick, secure, and professional delivery.</p>
-    <button>Contact Us</button>
-  </div>
-</section>
+            <div className="group relative bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-lg rounded-3xl p-8 border border-blue-400/30 hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 to-purple-600/0 group-hover:from-blue-600/20 group-hover:to-purple-600/20 rounded-3xl transition-all duration-500"></div>
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-500">
+                  <Package size={40} />
+                </div>
+                <h3 className="text-3xl font-bold mb-4">E-Commerce Delivery</h3>
+                <p className="text-gray-300 mb-6">
+                  Secure and reliable delivery for all your online shopping needs. From small packages to large items, we handle everything with care and professionalism.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>Secure package handling</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>Same-day delivery options</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={20} className="text-green-400" />
+                    <span>Proof of delivery photos</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<section id="services" class="services">
-  <h2>Our Services</h2>
-  <div class="service-grid">
-    <div class="service-card">
-      <h3>Express Delivery</h3>
-      <p>Quick and secure delivery across Doha within hours.</p>
+      {/* Features Section */}
+      <section id="features" className="relative py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Why Choose Us
+            </h2>
+            <p className="text-xl text-gray-300">Excellence in every delivery</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center p-8 bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-3xl border border-purple-400/20 hover:border-purple-400/50 transition-all duration-300 hover:-translate-y-2">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform">
+                <Zap size={40} />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Lightning Fast</h3>
+              <p className="text-gray-300">Express delivery across Doha with real-time tracking and updates every step of the way.</p>
+            </div>
+
+            <div className="text-center p-8 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-lg rounded-3xl border border-blue-400/20 hover:border-blue-400/50 transition-all duration-300 hover:-translate-y-2">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform">
+                <Shield size={40} />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">100% Secure</h3>
+              <p className="text-gray-300">Your orders are insured and handled with the highest security standards from pickup to delivery.</p>
+            </div>
+
+            <div className="text-center p-8 bg-gradient-to-br from-pink-500/10 to-orange-500/10 backdrop-blur-lg rounded-3xl border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:-translate-y-2">
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform">
+                <Star size={40} />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Top Rated</h3>
+              <p className="text-gray-300">Trusted by thousands of customers with a 4.9-star rating for our exceptional service quality.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="relative py-32 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <p className="text-xl text-gray-300">We're here to help 24/7</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-lg rounded-3xl p-12 border border-purple-400/30">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 p-6 bg-white/5 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <div className="p-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl">
+                    <Phone size={28} />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 mb-1">Call Us</p>
+                    <a href="tel:+97474007512" className="text-xl font-semibold hover:text-purple-400 transition-colors">
+                      +974 7400 7512
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-6 bg-white/5 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <div className="p-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl">
+                    <Mail size={28} />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 mb-1">Email Us</p>
+                    <a href="mailto:info@dcaredoha.com" className="text-xl font-semibold hover:text-purple-400 transition-colors">
+                      info@dcaredoha.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-6 bg-white/5 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <div className="p-4 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl">
+                    <MapPin size={28} />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 mb-1">Location</p>
+                    <p className="text-xl font-semibold">Doha, Qatar</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <div className="text-center space-y-6">
+                  <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                    <Package size={64} />
+                  </div>
+                  <h3 className="text-2xl font-bold">Ready to Deliver</h3>
+                  <p className="text-gray-300">Contact us now and experience the best delivery service in Qatar</p>
+                  <button className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/50">
+                    Start Your Order
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative py-12 px-6 border-t border-purple-500/30 bg-slate-900/50 backdrop-blur-lg">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            DcareDoha
+          </div>
+          <p className="text-gray-400 mb-6">Your trusted delivery partner in Qatar</p>
+          <div className="flex justify-center gap-8 mb-6">
+            <a href="#home" className="hover:text-purple-400 transition-colors">Home</a>
+            <a href="#services" className="hover:text-purple-400 transition-colors">Services</a>
+            <a href="#features" className="hover:text-purple-400 transition-colors">Features</a>
+            <a href="#contact" className="hover:text-purple-400 transition-colors">Contact</a>
+          </div>
+          <p className="text-gray-500">© 2024 DcareDoha. All rights reserved.</p>
+        </div>
+      </footer>
+
+      <style jsx>{`
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animate-slide-up {
+          animation: slide-up 0.8s ease-out;
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+      `}</style>
     </div>
-    <div class="service-card">
-      <h3>Corporate Delivery</h3>
-      <p>Reliable logistics support for corporate clients and businesses.</p>
-    </div>
-    <div class="service-card">
-      <h3>Parcel Transport</h3>
-      <p>Safe handling and transportation of your valuable packages.</p>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="about">
-  <h2>About Us</h2>
-  <p>
-    Dcare Doha is a modern delivery and logistics solutions provider dedicated to offering trustworthy and efficient delivery services. Our mission is to support individuals and businesses with fast, safe, and dependable transport across Doha.
-  </p>
-</section>
-
-<section id="contact" class="contact">
-  <h2>Contact Us</h2>
-  <div class="box">
-    <p><strong>Phone:</strong> +974 XXXXXXXX</p>
-    <p><strong>Email:</strong> info@dcaredoha.com</p>
-    <p><strong>Location:</strong> Doha, Qatar</p>
-  </div>
-</section>
-
-<footer>
-  © 2025 Dcare Doha. All rights reserved.
-</footer>
-
-</body>
-</html>
+  );
+}
