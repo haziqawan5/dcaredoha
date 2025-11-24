@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dcare Doha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fb;
+      color: #222;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0c4bfa;
+    }
+    nav a {
+      margin-left: 25px;
+      color: #333;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .hero {
+      height: 90vh;
+      background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 50px;
+      font-weight: 700;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+    .hero button {
+      margin-top: 20px;
+      padding: 14px 30px;
+      background: #0c4bfa;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 80px 40px;
+    }
+
+    .services h2, .about h2, .contact h2 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #0c4bfa;
+    }
+
+    .about p {
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .contact .box {
+      max-width: 600px;
+      background: white;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: #0c4bfa;
+      padding: 25px;
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Dcare Doha</div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Fast & Reliable Delivery Services in Doha</h1>
+    <p>Your trusted partner for quick, secure, and professional delivery.</p>
+    <button>Contact Us</button>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <h2>Our Services</h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3>Express Delivery</h3>
+      <p>Quick and secure delivery across Doha within hours.</p>
+    </div>
+    <div class="service-card">
+      <h3>Corporate Delivery</h3>
+      <p>Reliable logistics support for corporate clients and businesses.</p>
+    </div>
+    <div class="service-card">
+      <h3>Parcel Transport</h3>
+      <p>Safe handling and transportation of your valuable packages.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <h2>About Us</h2>
+  <p>
+    Dcare Doha is a modern delivery and logistics solutions provider dedicated to offering trustworthy and efficient delivery services. Our mission is to support individuals and businesses with fast, safe, and dependable transport across Doha.
+  </p>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <div class="box">
+    <p><strong>Phone:</strong> +974 XXXXXXXX</p>
+    <p><strong>Email:</strong> info@dcaredoha.com</p>
+    <p><strong>Location:</strong> Doha, Qatar</p>
+  </div>
+</section>
+
+<footer>
+  © 2025 Dcare Doha. All rights reserved.
+</footer>
+
+</body>
+</html>
